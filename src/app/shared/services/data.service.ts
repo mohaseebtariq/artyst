@@ -1,4 +1,4 @@
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Artist } from './../interfaces/artist.interface';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -17,7 +17,10 @@ export class DataService {
 
     getArtists(artistName: string) {
         let actorsUrl = `${this.apiUrl}/artists/${artistName}?app_id=${this.app_id}`;
-        return this.http.get<Artist>(actorsUrl).pipe(catchError(this.errorHandler))
+        console.log()
+        return this.http.get<Artist>(actorsUrl).pipe(map(artist => {
+            return artist;
+        }) ,catchError(this.errorHandler))
     }
 
     errorHandler(error: HttpErrorResponse) {

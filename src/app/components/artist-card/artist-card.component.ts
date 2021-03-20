@@ -1,5 +1,5 @@
 import { Artist } from './../../shared/interfaces/artist.interface';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-artist-card',
@@ -8,11 +8,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ArtistCardComponent implements OnInit {
 
-  @Input() artistData: Array<Artist> = []
+  @Input() artistData: Array<any> = [];
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }
