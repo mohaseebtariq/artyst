@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IconsModule } from './icons/icons.module';
+import { DataService } from './shared/services/data.service';
 
 @NgModule({
   declarations: [
@@ -12,9 +13,9 @@ import { IconsModule } from './icons/icons.module';
   imports: [
     BrowserModule,
     IconsModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
