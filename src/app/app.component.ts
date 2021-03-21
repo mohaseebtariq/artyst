@@ -1,8 +1,12 @@
 import { Artist } from './shared/interfaces/artist.interface';
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
 import { DataService } from './shared/services/data.service';
-import { debounceTime } from 'rxjs/operators';
+import { CacheService } from './shared/services/cache.service';
 
 @Component({
   selector: 'app-root',
@@ -13,16 +17,26 @@ export class AppComponent implements OnInit, OnDestroy{
 
   artists: Array<Artist> = [];
   subjectKeyUp = new Subject<any>();
-  artistResponse: any;
-  constructor(private data: DataService) {}
+  artistResponse: Subscription = new Subscription;
+
+  constructor(private data: DataService, private cache: CacheService) {}
 
   ngOnInit(): void {
-    this.subjectKeyUp.pipe(debounceTime(1000)).subscribe(data => {
-      this.artistResponse = this.data.getArtists(data).subscribe(artist => {
-        if (typeof artist !== 'string') {
+    const cachedArtistList = this.cache.getCachedArtists();
+    this.subjectKeyUp.pipe(debounceTime(1000), distinctUntilChanged()).subscribe(data => {
+      if (cachedArtistList === null) {
+        this.requestArtist(data);
+    } else {
+      let artistArray: Array<Artist> = JSON.parse(cachedArtistList !);
+      let cachedArtist = artistArray.filter(value => value.name.toLocaleLowerCase() === data);
+      if (cachedArtist.length > 0) {
+        cachedArtist.map(artist => {
           this.artists.push(artist);
-        }
-      })
+        })
+      } else {
+        this.requestArtist(data);
+      }
+    } 
     })
   }
 
@@ -31,6 +45,15 @@ export class AppComponent implements OnInit, OnDestroy{
     if (searchValue !== '') {
       this.subjectKeyUp.next(searchValue);
     }
+  }
+
+  requestArtist(data: string) {
+    this.artistResponse = this.data.getArtists(data).subscribe(artist => {
+      if (typeof artist !== 'string') {
+        this.cache.cacheArtists(artist);
+        this.artists.push(artist);
+      }
+    })
   }
 
   ngOnDestroy() {

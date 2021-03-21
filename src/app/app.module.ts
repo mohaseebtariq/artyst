@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { DataService } from './shared/services/data.service';
 import { ArtistCardComponent } from './components/artist-card/artist-card.component';
 import { SearchComponent } from './components/search/search.component';
+import { CacheService } from './shared/services/cache.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { SearchComponent } from './components/search/search.component';
     HttpClientModule,
     IconsModule,
   ],
-  providers: [DataService],
+  providers: [DataService, CacheService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
