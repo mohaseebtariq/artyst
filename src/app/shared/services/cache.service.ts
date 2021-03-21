@@ -13,6 +13,14 @@ export class CacheService {
 
     cacheArtists(artist: Artist) {
         this.artists.push(artist);
+        const artistStorage = localStorage.getItem('artists');
+        if(artistStorage) {
+            let storage = JSON.parse(artistStorage)
+            this.artists.map(value => {
+                storage.push(value);
+            })
+            localStorage.setItem('artists', JSON.stringify(storage));    
+        }
         localStorage.setItem('artists', JSON.stringify(this.artists));
     }
 
