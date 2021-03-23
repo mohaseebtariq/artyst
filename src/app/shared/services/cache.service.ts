@@ -1,32 +1,30 @@
 import { Artist } from './../interfaces/artist.interface';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class CacheService {
-    artists: Artist[] = [];
 
     constructor() {}
 
     cacheArtists(artist: Artist) {
-        this.artists.push(artist);
-        const artistStorage = localStorage.getItem('artists');
-        if(artistStorage) {
-            let storage = JSON.parse(artistStorage)
-            this.artists.map(value => {
-                storage.push(value);
-            })
-            localStorage.setItem('artists', JSON.stringify(storage));    
+        const artistStorage: Array<Artist> = JSON.parse(localStorage.getItem('artists') !) || [];
+        if (artistStorage.length > 0) {
+            artistStorage.push(artist);
+            localStorage.setItem('artists', JSON.stringify(artistStorage));
+        } else {
+            localStorage.setItem('artists', JSON.stringify(artist));
         }
-        localStorage.setItem('artists', JSON.stringify(this.artists));
     }
 
     getCachedArtists() {
-        const cachedArtist = localStorage.getItem('artists');
-        return cachedArtist;
+        const cachedArtist = JSON.parse(localStorage.getItem('artists') !);
+        return new Observable((observer) => {
+            return observer.next(cachedArtist);
+        });
     }
     
 
