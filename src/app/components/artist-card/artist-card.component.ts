@@ -30,7 +30,7 @@ export class ArtistCardComponent implements OnInit, DoCheck{
       this.artistData.map(artist => {
         const existingArtist = this.cache.artistExists(artist.id);
         if(existingArtist?.length > 0) {
-          if (existingArtist[0].events.length > 0) {
+          if (existingArtist[0].events) {
             existingArtist[0].events.map(e => {
               this.eventData.push(e);
               this.nonExistent = false;
