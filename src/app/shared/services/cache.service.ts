@@ -16,7 +16,7 @@ export class CacheService {
             artistStorage.push(artist);
             localStorage.setItem('artists', JSON.stringify(artistStorage));
         } else {
-            localStorage.setItem('artists', JSON.stringify(artist));
+            localStorage.setItem('artists', JSON.stringify([artist]));
         }
     }
 
