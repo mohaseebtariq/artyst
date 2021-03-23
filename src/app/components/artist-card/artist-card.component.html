@@ -18,12 +18,26 @@
     </div>
 </div>
 
-<!-- Actor card ends -->
+<article *ngIf="artistData.length === 0" class="card ml-5 mr-5 bg-white overflow-hidden rounded-lg shadow-lg">
+    <p class="text-3xl font-bold text-center font-mono:font-mono mt-8">
+        User Not Found
+    </p>
+</article>
 
+
+<!-- Actor card ends -->
+<article *ngIf="nonExistent" class="card ml-5 mr-5 bg-white overflow-hidden rounded-lg shadow-lg">
+    <p class="text-3xl font-bold text-center font-mono:font-mono mt-8">
+        No Upcomming Events.
+    </p>
+</article>
 
 <!-- Event card starts -->
 
 <div *ngIf="eventData.length > 0" class="container my-12 mx-auto px-4 md:px-12">
+    <h2 class="font-mono:font-mono font-bold py-3 text-white text-2xl">
+        {{eventData.length}} Upcomming events
+    </h2>
     <div class="flex flex-wrap -mx-1 lg:-mx-4">
         <div *ngFor="let event of (eventData)" class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
             <article class="card bg-white overflow-hidden rounded-lg shadow-lg">
@@ -31,26 +45,24 @@
                     <h1>Event Details</h1>
                 </div>
                 <footer class="p-2 md:p-4">
-                    <a (click)="getEvents()" class="flex items-center no-underline hover:underline text-black">
-                        <div class="text-black w-full">
-                            <div class="flex justify-between">
-                                <b class="ml-2">Name:</b>
-                                <p class="text-sm">{{event?.venue?.name}}</p>
-                            </div>
-                            <div class="flex justify-between">
-                                <b class="ml-2">City:</b>
-                                <p class="text-sm">{{event?.venue?.city}}</p>
-                            </div>
-                            <div class="flex justify-between">
-                                <b class="ml-2">Country:</b>
-                                <p class="text-sm">{{event?.venue?.country}}</p>
-                            </div>
-                            <div class="flex justify-between">
-                                <b class="ml-2">Date:</b>
-                                <p class="text-sm">{{event?.datetime | date: 'd MMMM, y'}}</p>
-                            </div>
+                    <div class="text-black w-full">
+                        <div class="flex justify-between">
+                            <b class="ml-2">Name:</b>
+                            <p class="text-sm">{{event?.venue?.name}}</p>
                         </div>
-                    </a>
+                        <div class="flex justify-between">
+                            <b class="ml-2">City:</b>
+                            <p class="text-sm">{{event?.venue?.city}}</p>
+                        </div>
+                        <div class="flex justify-between">
+                            <b class="ml-2">Country:</b>
+                            <p class="text-sm">{{event?.venue?.country}}</p>
+                        </div>
+                        <div class="flex justify-between">
+                            <b class="ml-2">Date:</b>
+                            <p class="text-sm">{{event?.datetime | date: 'MMMM d, y'}}</p>
+                        </div>
+                    </div>
                 </footer>
             </article>
         </div>
