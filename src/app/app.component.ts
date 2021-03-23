@@ -30,6 +30,7 @@ export class AppComponent implements OnInit, OnDestroy{
         let artistArray: Array<Artist> = cachedValue;
         let cachedArtist = artistArray.filter(value => value.name.toLocaleLowerCase() === data);
         if (cachedArtist.length > 0) {
+          this.artists.length = 0;
           cachedArtist.map(artist => {
             this.artists.push(artist);
           })
@@ -46,6 +47,8 @@ export class AppComponent implements OnInit, OnDestroy{
     let searchValue = e.target.value;
     if (searchValue !== '') {
       this.subjectKeyUp.next(searchValue);
+    } else {
+      this.artists.length = 0;
     }
   }
 
@@ -53,6 +56,7 @@ export class AppComponent implements OnInit, OnDestroy{
     this.artistResponse = this.data.getArtists(data).subscribe(artist => {
       if (typeof artist !== 'string') {
         this.cache.cacheArtists(artist);
+        this.artists.length = 0;
         this.artists.push(artist);
       }
     })

@@ -9,12 +9,14 @@ import { DataService } from './shared/services/data.service';
 import { ArtistCardComponent } from './components/artist-card/artist-card.component';
 import { SearchComponent } from './components/search/search.component';
 import { CacheService } from './shared/services/cache.service';
+import { ArtistEventComponent } from './components/artist-event/artist-event.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ArtistCardComponent,
-    SearchComponent
+    SearchComponent,
+    ArtistEventComponent
   ],
   imports: [
     BrowserModule,
