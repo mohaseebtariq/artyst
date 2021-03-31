@@ -1,27 +1,54 @@
-# Artyst
+<div align="center">
+  <img alt="Logo" src="https://artyst-app.vercel.app/assets/logo.svg" width="100" />
+</div>
+<br>
+<p align="center">
+  <a href="https://artyst-app.vercel.app/" target="_blank">artyst-app.vercel.app/</a> built with <a href="https://angular.io/" target="_blank">Angular</a> and hosted with <a href="https://www.vercel.com/" target="_blank">vercel</a>
+</p>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.5.
 
-## Development server
+## 🛠 Installation & Set Up
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. Install the Angular CLI
 
-## Code scaffolding
+   ```sh
+   npm install -g @angular/cli
+   ```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+3. Install dependencies
 
-## Build
+   ```sh
+   npm i
+   ```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+4. Start the development server
 
-## Running unit tests
+   ```sh
+   ng serve & Navigate to `http://localhost:4200/
+   ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 🚀 Building and Running for Production
 
-## Running end-to-end tests
+1. Generate a full static production build
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+   ```sh
+   Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+   ```
 
-## Further help
+1. Preview the site as it will appear once deployed
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+   ```sh
+   Go to the /dist directory and run command `ng serve`
+   ```
+
+## Deployment Strategy
+
+I setup a CI/CD pipeline using vercel which deploys every branch so you can test it live, after pushing the changes into remote repository.
+
+## About the Application
+
+I make a get request to the provided API and after that cache the artists in the local storage so when the next time it checks for the same artist, it display it directly from the local storage so it doesn't have to make a request to the server
+
+## Frontend
+
+I designed the front-end using tailwind CSS.
